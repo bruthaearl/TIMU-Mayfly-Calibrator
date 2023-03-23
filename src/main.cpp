@@ -9,7 +9,12 @@ void i2c_cal(void) {
     String address;
     String command;
     String first;
+
+    // reserve a bunch of bytes for the strings
     first.reserve(40);
+    command.reserve(40);
+    address.reserve(40);
+
     // check for "I2C" from serial buffer
     first = Serial.readStringUntil('\ ');
     first.trim();
