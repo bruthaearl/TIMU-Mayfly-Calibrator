@@ -24,6 +24,7 @@ void i2c_cal(void) {
     } else {
         // if I2C not found, flush the buffer
         (Serial.flush());
+        Serial.println(first);
         Serial.println("i2c string not recognized");
         return;
     }
