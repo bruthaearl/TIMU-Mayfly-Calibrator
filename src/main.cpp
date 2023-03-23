@@ -8,8 +8,10 @@ const int32_t serialBaud = 115200;
 void i2c_cal(void) {
     String address;
     String command;
+    String first;
+    first.reserve(40);
     // check for "I2C" from serial buffer
-    String first = Serial.readStringUntil('\ ');
+    first = Serial.readStringUntil('\ ');
     first.trim();
     if (first == "I2C") {
         // next string is address
@@ -69,6 +71,7 @@ void setup() {
     // turn on regulator to power EZO
    digitalWrite(PIN_REG_3V3, HIGH);
    Serial.begin(serialBaud);
+   Serial.setTimeout(2000);
 }
 void loop() {
 
