@@ -11,7 +11,7 @@ const int32_t serialBaud = 57600;
 
 char rx_buffer[BUFFER_SIZE];
 uint8_t bytes_read = 0;
-bool serial_flag = false;  // true when data in serial buffer
+bool serial_loaded = false;  // true when data in serial buffer
 
 char *sensor;   // buffer for sensor string
 char *command;  // buffer for command string
@@ -29,7 +29,7 @@ void serialEvent() {
     bytes_read = Serial.readBytesUntil('\r', rx_buffer, BUFFER_SIZE);
     // the last byte read is the CR, remove it
     rx_buffer[bytes_read] = 0;
-    serial_flag = true;
+    serial_loaded = true;
 }
 
 void print_help(void) {
@@ -125,7 +125,7 @@ void setup() {
 }
 void loop() {
     // if serial_flag is set then data has been pulled from serial line and placed into rx_buffer
-    if (serial_flag == true) {
+    if (serial_loaded == true) {
         // extract sensor and command string
         sensor = strtok(rx_buffer, " ");
         command = strtok(NULL, " ");
@@ -150,6 +150,6 @@ void loop() {
             Serial.print("Type HELP for syntax help \n\n");
         }
 
-        serial_flag = false;
+        serial_loaded = false;
     }
 }
